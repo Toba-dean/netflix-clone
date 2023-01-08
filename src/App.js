@@ -1,10 +1,15 @@
-import './App.css';
+import { Routes, Route } from "react-router-dom";
+
+import * as ROUTES from "./constants/routes";
+import { HomePage } from "./pages";
 
 function App() {
   return (
-    <div className="App">
-      <h1>Hello America</h1>
-    </div>
+    <Routes>
+      <Route path={ROUTES.HOME}>
+        <Route index element={<HomePage />} />
+      </Route>
+    </Routes>
   );
 }
 

@@ -1,18 +1,22 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
+import { createRoot } from 'react-dom/client';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { BrowserRouter } from 'react-router-dom';
 
 import { FirebaseContext } from './context/firebaseContext';
 import { firebase } from './services/firebase';
+import { GlobalStyles } from './global-styles';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <FirebaseContext value={{ firebase }}>
-      <App />
-    </FirebaseContext>
+    <FirebaseContext.Provider value={{ firebase }}>
+      <BrowserRouter>
+        <GlobalStyles />
+        <App />
+      </BrowserRouter>
+    </FirebaseContext.Provider>
   </React.StrictMode>
 );
 
