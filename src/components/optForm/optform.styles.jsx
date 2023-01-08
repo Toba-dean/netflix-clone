@@ -23,6 +23,7 @@ export const Input = styled.input`
   border-bottom-left-radius: 5px;
   border-top-left-radius: 5px;
   font-size: 17px;
+  outline: none;
 
   @media (max-width: 1000px) {
     border-radius: 5px;
