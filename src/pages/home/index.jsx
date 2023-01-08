@@ -1,5 +1,5 @@
 import { Feature, OptForm } from '../../components'
-import { HeaderContainer } from '../../container'
+import { FAQContainer, HeaderContainer, JumbotronContainer } from '../../container'
 
 const HomePage = () => {
   return (
@@ -19,6 +19,8 @@ const HomePage = () => {
           </OptForm>
         </Feature>
       </HeaderContainer>
+      <JumbotronContainer />
+      <FAQContainer />
     </>
   )
 }
