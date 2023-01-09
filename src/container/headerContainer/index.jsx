@@ -6,7 +6,7 @@ const HeaderContainer = ({ children }) => {
   return (
     <Header>
       <Header.Frame>
-        <Header.Logo to={ROUTES.HOME} src={LOGO} />
+        <Header.Logo to={ROUTES.HOME} src={LOGO} alt="Netflix" />
 
         <Header.ButtonLink to={ROUTES.SIGN_IN}>
           Sign In

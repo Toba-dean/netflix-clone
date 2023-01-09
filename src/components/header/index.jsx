@@ -1,11 +1,11 @@
-// import { useState } from "react";
+import { useState } from "react";
 import { Link as ReachRouterLink } from 'react-router-dom';
 
 import {
   Background, Container, Logo, ButtonLink,
-  // Feature, Profile, Text, FeatureCallOut,
-  // Link, Group, Picture, Dropdown, Search,
-  // SearchInput, SearchIcon, PlayButton
+  Feature, Profile, Text, FeatureCallOut,
+  Link, Group, Picture, Dropdown, Search,
+  SearchInput, SearchIcon, PlayButton
 } from './header.styles';
 
 const Header = ({ bg = true, children, ...restProps }) => {
@@ -71,19 +71,19 @@ Header.ButtonLink = function HeaderButtonLink({ children, ...restProps }) {
 //     </FeatureCallOut>);
 // };
 
-// Header.TextLink = function HeaderTextLink({ children, ...restProps }) {
-//   return (
-//     <Link {...restProps}>
-//       {children}
-//     </Link>);
-// };
+Header.TextLink = function HeaderTextLink({ children, ...restProps }) {
+  return (
+    <Link {...restProps}>
+      {children}
+    </Link>);
+};
 
-// Header.Group = function HeaderGroup({ children, ...restProps }) {
-//   return (
-//     <Group {...restProps}>
-//       {children}
-//     </Group>);
-// };
+Header.Group = function HeaderGroup({ children, ...restProps }) {
+  return (
+    <Group {...restProps}>
+      {children}
+    </Group>);
+};
 
 // Header.Profile = function HeaderProfile({ children, ...restProps }) {
 //   return (
@@ -108,25 +108,25 @@ Header.ButtonLink = function HeaderButtonLink({ children, ...restProps }) {
 //     </Dropdown>);
 // };
 
-// Header.Search = function HeaderSearch({ searchTerm, setSearchTerm, ...restProps }) {
+Header.Search = function HeaderSearch({ searchTerm, setSearchTerm, ...restProps }) {
 
-//   const [searchActive, setSearchActive] = useState(false)
+  const [searchActive, setSearchActive] = useState(false)
 
-//   return (
-//     <Search {...restProps} >
-//       <SearchIcon onClick={() => setSearchActive(searchActive => !searchActive)}>
-//         <img src="/images/icons/search.png" alt="Search" />
-//       </SearchIcon>
+  return (
+    <Search {...restProps} >
+      <SearchIcon onClick={() => setSearchActive(searchActive => !searchActive)}>
+        <img src="/images/icons/search.png" alt="Search" />
+      </SearchIcon>
 
-//       <SearchInput
-//         value={searchTerm}
-//         onChange={({ target }) => setSearchTerm(target.value)}
-//         placeholder='search'
-//         active={searchActive}
-//       />
-//     </Search>
-//   );
-// }
+      <SearchInput
+        value={searchTerm}
+        onChange={({ target }) => setSearchTerm(target.value)}
+        placeholder='search'
+        active={searchActive}
+      />
+    </Search>
+  );
+}
 
 // Header.PlayButton = function HeaderPlayButton({ children, ...restProps }) {
 //   return (
