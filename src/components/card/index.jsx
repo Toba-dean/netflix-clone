@@ -83,6 +83,7 @@ Card.Image = function CardImage({ ...restProps }) {
 Card.Item = function CardItem({ item, children, ...restProps }) {
 
   const { setShowFeature, setItemFeature, showFeature } = useContext(FeatureContext);
+  console.log(showFeature);
 
   return (
     <Item

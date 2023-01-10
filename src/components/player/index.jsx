@@ -21,6 +21,7 @@ export default Player
 
 Player.Button = function PlayerButton({ ...restProps }) {
   const { showPlayer, setShowPlayer } = useContext(PlayerContext);
+  console.log(showPlayer);
 
   return (
     <Button

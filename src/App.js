@@ -11,7 +11,9 @@ function App() {
   return (
     <Routes>
       <Route path={ROUTES.HOME}>
-        <Route index element={<HomePage />} />
+        <Route index element={
+          !user ? <HomePage /> : <Navigate to={ROUTES.BROWSE} />
+        } />
         <Route path={ROUTES.SIGN_IN} element={
           !user ? <SignIn /> : <Navigate to={ROUTES.BROWSE} />
         } />

@@ -1,10 +1,13 @@
 import { useContext, useState, useEffect } from 'react';
 import { getAuth, signOut } from "firebase/auth";
+import Fuse from 'fuse.js';
 
-import { Header, Card, Player } from '../../components';
+import { Header, Card, Player, Loading } from '../../components';
 import * as ROUTES from "../../constants/routes";
 import LOGO from "../../logo.svg";
 import { FirebaseContext } from "../../context/firebaseContext";
+import FooterContainer from '../footerContainer';
+import ProfileContainer from '../profilecontainer';
 
 const BrowseContainer = ({ slides }) => {
 
@@ -14,13 +17,35 @@ const BrowseContainer = ({ slides }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [slideRows, setSlideRows] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [profile, setProfile] = useState({});
+  const user = auth.currentUser || {};
 
   useEffect(() => {
     setSlideRows(slides[category]);
   }, [slides, category]);
 
-  return (
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 3000);
+  }, [profile.displayName]);
+
+  // for the live search using the fuse library.
+  useEffect(() => {
+    const fuse = new Fuse(slideRows, { keys: ['data.description', 'data.title', 'data.genre'] });
+    const results = fuse.search(searchTerm).map(({ item }) => item);
+
+    if (slideRows.length > 0 && searchTerm.length > 3 && results.length > 0) {
+      setSlideRows(results);
+    } else {
+      setSlideRows(slides[category]);
+    }
+  }, [searchTerm, category, slideRows, slides]);
+
+  return profile.displayName ? (
     <>
+      {loading ? <Loading src={user.photoURL} /> : <Loading.ReleaseBody />}
+
       <Header src="joker1" dontShowOnSmallViewPort>
         <Header.Frame>
           <Header.Group>
@@ -50,12 +75,12 @@ const BrowseContainer = ({ slides }) => {
             />
 
             <Header.Profile>
-              <Header.Picture src={1} />
+              <Header.Picture src={user.photoURL} />
 
               <Header.Dropdown>
                 <Header.Group>
-                  <Header.Picture src={1} />
-                  <Header.TextLink>dean</Header.TextLink>
+                  <Header.Picture src={user.photoURL} />
+                  <Header.TextLink>{user.displayName}</Header.TextLink>
                 </Header.Group>
 
                 <Header.Group>
@@ -121,7 +146,11 @@ const BrowseContainer = ({ slides }) => {
           ))
         }
       </Card.Group>
+
+      <FooterContainer />
     </>
+  ) : (
+    <ProfileContainer setProfile={setProfile} user={user} />
   )
 }
 
