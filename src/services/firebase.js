@@ -19,7 +19,7 @@ const firebaseConfig = {
 export const firebase = initializeApp(firebaseConfig);
 
 // Initialize Cloud Firestore and get a reference to the service
-const db = getFirestore(firebase);
+export const db = getFirestore(firebase);
 
 // Adding the seedData to the db once
 // seedDatabase(db, addDoc, collection)

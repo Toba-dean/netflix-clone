@@ -1,17 +1,19 @@
 import { useContext, useState } from 'react';
 import { getAuth, signOut } from "firebase/auth";
 
-import { Header } from '../../components';
+import { Header, Card } from '../../components';
 import * as ROUTES from "../../constants/routes";
 import LOGO from "../../logo.svg";
 import { FirebaseContext } from "../../context/firebaseContext";
 
-const BrowseContainer = () => {
+const BrowseContainer = ({ slides }) => {
 
   const { firebase } = useContext(FirebaseContext);
   const auth = getAuth(firebase);
   const [category, setCategory] = useState('series');
   const [searchTerm, setSearchTerm] = useState('');
+  const [slideRows, setSlideRows] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   return (
     <>
@@ -76,6 +78,38 @@ const BrowseContainer = () => {
           <Header.PlayButton>Play</Header.PlayButton>
         </Header.Feature>
       </Header>
+
+      <Card.Group>
+        {
+          slideRows.map(items => (
+            <Card key={`${category}-${items.title.toLowerCase()}`}>
+              <Card.Title>
+                {items.title}
+              </Card.Title>
+
+              <Card.Entities>
+                {
+                  items.data.map(item => (
+                    <Card.Item key={item.docId} item={item}>
+                      <Card.Image src={`/images/${category}/${item.genre}/${item.slug}/small.jpg`} alt='movies' />
+
+                      <Card.Meta>
+                        <Card.SubTitle>
+                          {item.title}
+                        </Card.SubTitle>
+
+                        <Card.Text>
+                          {item.description}
+                        </Card.Text>
+                      </Card.Meta>
+                    </Card.Item>
+                  ))
+                }
+              </Card.Entities>
+            </Card>
+          ))
+        }
+      </Card.Group>
     </>
   )
 }
