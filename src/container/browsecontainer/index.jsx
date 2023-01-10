@@ -1,7 +1,7 @@
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { getAuth, signOut } from "firebase/auth";
 
-import { Header, Card } from '../../components';
+import { Header, Card, Player } from '../../components';
 import * as ROUTES from "../../constants/routes";
 import LOGO from "../../logo.svg";
 import { FirebaseContext } from "../../context/firebaseContext";
@@ -14,6 +14,10 @@ const BrowseContainer = ({ slides }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [slideRows, setSlideRows] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setSlideRows(slides[category]);
+  }, [slides, category]);
 
   return (
     <>
@@ -106,6 +110,13 @@ const BrowseContainer = ({ slides }) => {
                   ))
                 }
               </Card.Entities>
+
+              <Card.Feature category={category}>
+                <Player>
+                  <Player.Button />
+                  <Player.Video src="/videos/bunny.mp4" />
+                </Player>
+              </Card.Feature>
             </Card>
           ))
         }

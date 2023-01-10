@@ -11,16 +11,16 @@ export const useContent = target => {
       try {
         const querySnapShot = await getDocs(collection(db, target))
         const allContent = querySnapShot.docs.map(content => ({
-            docId: content.id,
-            ...content.data()
-          }))
+          docId: content.id,
+          ...content.data()
+        }))
         setContent(allContent)
       } catch (error) {
         console.log(error.message);
       }
     }
     return () => getData()
-  }, [])
+  }, [target])
 
   return { [target]: content }
 }
